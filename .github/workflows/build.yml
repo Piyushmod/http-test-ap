@@ -23,21 +23,27 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install Android SDK tools
+      - name: Install Android SDK
         uses: android-actions/setup-android@v3
 
       - name: Install Android packages
         run: |
-          sdkmanager "platform-tools" "platforms;android-35" "build-tools;35.0.0"
+          sdkmanager "platform-tools"
+          sdkmanager "platforms;android-35"
+          sdkmanager "build-tools;35.0.0"
 
-      - name: Install dependencies
+      - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install buildozer cython
 
       - name: Build APK
-        run: buildozer android debug
+        run: |
+          export ANDROIDSDK="$ANDROID_HOME"
+          export ANDROIDAPI="35"
+          export ANDROIDMINAPI="23"
+          buildozer android debug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
