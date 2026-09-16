@@ -43,6 +43,16 @@ jobs:
           echo -e "\n24333f8a63b6825ea9c5514f83c2829b004d1fee\nd56f5187479451eabf01fb78af6dfcb131a6481e\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$HOME/.buildozer/android/platform/android-sdk/licenses/android-sdk-license"
           echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$HOME/.buildozer/android/platform/android-sdk/licenses/android-sdk-preview-license"
 
+      - name: Set up Android SDK command-line tools
+        run: |
+          mkdir -p "$HOME/.buildozer/android/platform/android-sdk/cmdline-tools"
+          cd "$HOME/.buildozer/android/platform/android-sdk/cmdline-tools"
+          wget -q https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O cmdline-tools.zip
+          unzip -q cmdline-tools.zip
+          mv cmdline-tools latest
+          mkdir -p "$HOME/.buildozer/android/platform/android-sdk/tools/bin"
+          ln -s "$HOME/.buildozer/android/platform/android-sdk/cmdline-tools/latest/bin/sdkmanager" "$HOME/.buildozer/android/platform/android-sdk/tools/bin/sdkmanager"
+
       - name: Build APK
         run: |
           buildozer android debug
