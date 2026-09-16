@@ -5,7 +5,7 @@ package.domain = org.piyushmod
 source.dir = .
 source.include_exts = py,png,jpg,kv,atlas
 version = 1.0
-requirements = python3,kivy,requests,charset-normalizer==3.3.2
+requirements = python3,kivy,requests,charset-normalizer==2.1.1
 orientation = portrait
 fullscreen = 0
 
